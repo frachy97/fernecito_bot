@@ -23,14 +23,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    public User login(String username, String password) throws RecordNotExistsException, ValidationException {
-        if ((username != null) && (password != null)) {
-            return userService.login(username, password);
-        } else {
-            throw new ValidationException("username and password must have a value");
-        }
-    }
-
     @GetMapping("/{userId}")
     public User getUserbyId(@PathVariable Integer userId) throws RecordNotExistsException {
         return this.userService.findById(userId);
