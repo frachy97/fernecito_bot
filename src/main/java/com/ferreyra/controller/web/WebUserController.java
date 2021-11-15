@@ -1,6 +1,7 @@
 package com.ferreyra.controller.web;
 import com.ferreyra.exceptions.InvalidRequestException;
 import com.ferreyra.exceptions.RecordNotExistsException;
+import com.ferreyra.exceptions.ValidationException;
 import com.ferreyra.service.CreditService;
 import com.google.zxing.WriterException;
 import org.slf4j.Logger;
@@ -30,7 +31,7 @@ public class WebUserController {
     }
 
     @GetMapping("read-qr/{userId}/{hashCode}")
-    public Boolean readQr(@PathVariable Integer userId, @PathVariable String hashCode) {
+    public Boolean readQr(@PathVariable Integer userId, @PathVariable String hashCode) throws ValidationException {
         logger.info("TEST EXITOSO: userId->"+ userId + " hashCode->"+hashCode);
         return creditService.readCredit(userId, hashCode);
     }
