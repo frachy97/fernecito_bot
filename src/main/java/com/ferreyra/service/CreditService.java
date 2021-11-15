@@ -2,6 +2,7 @@ package com.ferreyra.service;
 
 import com.ferreyra.exceptions.InvalidRequestException;
 import com.ferreyra.exceptions.RecordNotExistsException;
+import com.ferreyra.exceptions.ValidationException;
 import com.ferreyra.model.Credit;
 import com.ferreyra.model.User;
 import com.ferreyra.repository.CreditRepository;
@@ -50,7 +51,7 @@ public class CreditService {
         }
     }
 
-    public Boolean readCredit(Integer userId, String hashCode) {
+    public Boolean readCredit(Integer userId, String hashCode) throws ValidationException {
         Boolean flag = false;
         List<Credit> credits= creditRepository.getCreditsByUser(userId);
         for(int i = 0; i < credits.size(); i++) {
@@ -58,6 +59,10 @@ public class CreditService {
                 if (credits.get(i).getActive() == true){
                     creditRepository.updateCredit(credits.get(i).getId());
                     flag = true;
+                }else{
+                    if (credits.get(i).getActive() != true){
+                        throw new ValidationException("El credito ya fue usado.");
+                    }
                 }
             }
         }
