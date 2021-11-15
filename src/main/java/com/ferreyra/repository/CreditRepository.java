@@ -27,8 +27,8 @@ public interface CreditRepository extends JpaRepository<Credit, Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE credits SET active = false WHERE fk_id_user = ?1", nativeQuery = true)
-    public void updateCredit(Integer userId);
+    @Query(value = "UPDATE credits SET active = false WHERE id_credit = ?1", nativeQuery = true)
+    public void updateCredit(Integer creditId);
 
 
 
