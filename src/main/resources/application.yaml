@@ -1,9 +1,9 @@
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://sql3.freesqldatabase.com:3306/ferreyrabd
-    username: ferreyra
-    password: Jrboca97@
+    url: jdbc:mysql://sql10.freesqldatabase.com:3306/sql10622072
+    username: sql10622072
+    password: gkzGCjfmPe
     show-sql: true
   jpa:
     hibernate.ddl-auto: update
