@@ -59,6 +59,7 @@ public class CreditService {
     public Boolean readCredit(Integer userId, String hashCode) throws ValidationException {
         Boolean flag = false;
         List<Credit> credits= creditRepository.getCreditsByUser(userId);
+        logger.info("CreditsByUser-> size: {}", credits.size());
         for(int i = 0; i < credits.size(); i++) {
             if (hashCode.equals(credits.get(i).getHashCode())){
                 if (credits.get(i).getActive() == true){
