@@ -25,14 +25,14 @@ public class WebUserController {
 
     @GetMapping("generate-qr/{userId}/{quantity}/{chatId}")
     public String generateQr(@PathVariable Integer userId, @PathVariable String chatId, @PathVariable Integer quantity) throws InvalidRequestException, IOException, WriterException, RecordNotExistsException {
-        logger.info("TEST EXITOSO: userId->"+ userId + " chatId->"+chatId);
+        logger.info("Generate QR: userId->"+ userId + " chatId->"+chatId);
         creditService.addCredit(userId, chatId, Double.valueOf("1"), quantity);
         return chatId;
     }
 
     @GetMapping("read-qr/{userId}/{hashCode}")
     public Boolean readQr(@PathVariable Integer userId, @PathVariable String hashCode) throws ValidationException {
-        logger.info("TEST EXITOSO: userId->"+ userId + " hashCode->"+hashCode);
+        logger.info("Read QR: userId->"+ userId + " hashCode->"+hashCode);
         return creditService.readCredit(userId, hashCode);
     }
 
