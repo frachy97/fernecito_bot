@@ -27,6 +27,7 @@ import static java.util.Objects.isNull;
 public class CreditService {
 
     private static final String QR_CODE_IMAGE_PATH = "./src/main/resources/QRCode.png";
+    private static final Logger logger = LoggerFactory.getLogger(CreditService.class);
     private final CreditRepository creditRepository;
     private final UserRepository userRepository;
 
@@ -44,10 +45,12 @@ public class CreditService {
             Credit credit = new Credit(user, price, true, code);
             Integer id = creditRepository.addCredit(user.getId(), price, true, code);
             if (id == null) {
+                logger.info("Se produjo un error al generar el credito.");
                 throw new InvalidRequestException("Credit can not be created");
             }
             QRCodeGenerator.generateQRCodeImage(code, 1000, 1000, QR_CODE_IMAGE_PATH);
             TelegramUtils.sendQr(chatId, QR_CODE_IMAGE_PATH);
+            logger.info("Se procedera a enviar el QR...");
         }
     }
 
@@ -57,10 +60,12 @@ public class CreditService {
         for(int i = 0; i < credits.size(); i++) {
             if (hashCode.equals(credits.get(i).getHashCode())){
                 if (credits.get(i).getActive() == true){
+                    logger.info("QR VALIDO!");
                     creditRepository.updateCredit(credits.get(i).getId());
                     flag = true;
                 }else{
                     if (credits.get(i).getActive() != true){
+                        logger.info("QR INVALIDO!");
                         throw new ValidationException("El credito ya fue usado.");
                     }
                 }
